@@ -106,15 +106,46 @@ function updateTestIDState(newState) {
 }
 
 function updateIRState(newState) {
-    setReportedKey('activateIR', newState)
+    const irState = newState ? 'Yes' : 'No'
+    const windows = BrowserWindow.getAllWindows()
+    windows[0].webContents.executeJavaScript(`document.getElementById('ir_state').innerHTML = 'Reading IR Data: ${irState}'`, () => {
+        setReportedKey('activateIR', newState)
+    })
 }
 
 function updateLEDState(newState) {
-    setReportedKey('ledState', newState)
+    let colorHex = '000000'
+    switch (newState) {
+        case 1:
+            colorHex = 'FF0000'
+            break
+        case 2:
+            colorHex = '00FF00'
+            break
+        case 3:
+            colorHex = '0000FF'
+            break
+        default:
+            colorHex = '000000'
+    }
+    const windows = BrowserWindow.getAllWindows()
+    windows[0].webContents.executeJavaScript(`document.getElementById('led_state').style.backgroundColor = '#${colorHex}'`, () => {
+        setReportedKey('ledState', newState)
+    })
 }
 
 function updateFeederState(newState) {
-    setReportedKey('feederDuration', newState)
+    const feederState = newState > 0 ? 'On' : 'Off'
+    const windows = BrowserWindow.getAllWindows()
+    windows[0].webContents.executeJavaScript(`document.getElementById('feeder_state').innerHTML = 'Feeder: ${feederState}'`, () => {
+        setReportedKey('feederDuration', newState)
+    })
+
+    if (feederState === ' On') {
+        setTimeout(() => {
+            updateFeederState(0)
+        }, newState * 1000)
+    }
 }
 
 function updateScreensState(newState) {
