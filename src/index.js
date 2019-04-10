@@ -12,8 +12,8 @@ let mainWindow
 const createWindow = () => {
     // Create the browser window.
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1280,
+        height: 1024,
     })
 
     // and load the index.html of the app.
@@ -56,11 +56,4 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-// Just testing the system to put a random local image in the window every 5 seconds
-setInterval(() => {
-    const imageURI = `${Math.floor(Math.random() * 3) + 1}.png`
-    mainWindow.webContents.executeJavaScript(`document.getElementById('main_image').src = 'images/${imageURI}'`, () => {
-        // TODO: Handle the error here
-        // console.log(result)
-    })
-}, 5000)
+import './shadow.js' // eslint-disable-line
