@@ -1,6 +1,6 @@
 # ElephantScreen
 
-Image viewer for Elephants
+The Screen portion of the ElephantSystem ([ElephantScreen](https://github.com/BinaryBeard/ElephantScreen), [ElephantCloud](https://github.com/BinaryBeard/ElephantCloud), [ElephantOverseer](#))
 
 ## Getting Started
 
