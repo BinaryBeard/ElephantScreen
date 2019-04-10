@@ -69,10 +69,12 @@ function setInitialState() {
     addToUpdateQueue({
         state: {
             reported: {
+                testID: '',
                 imageID: 0,
                 activateIR: false,
                 ledState: 0,
                 feederDuration: 0,
+                screens: [],
             },
         },
     })
@@ -99,6 +101,10 @@ function updateImageState(newState) {
     })
 }
 
+function updateTestIDState(newState) {
+    setReportedKey('testID', newState)
+}
+
 function updateIRState(newState) {
     setReportedKey('activateIR', newState)
 }
@@ -109,6 +115,10 @@ function updateLEDState(newState) {
 
 function updateFeederState(newState) {
     setReportedKey('feederDuration', newState)
+}
+
+function updateScreensState(newState) {
+    setReportedKey('screens', newState)
 }
 
 shadow.on('connect', () => {
@@ -136,6 +146,12 @@ shadow.on('delta', (name, delta) => {
                 break
             case 'feederDuration':
                 updateFeederState(delta.state[key])
+                break
+            case 'testID':
+                updateTestIDState(delta.state[key])
+                break
+            case 'screens':
+                updateScreensState(delta.state[key])
                 break
             default:
                 console.log('Nothing was done, but desired should be gone...')
