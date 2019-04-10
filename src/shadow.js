@@ -14,8 +14,8 @@ const shadow = IoT.thingShadow({
 const pendingUpdateQueue = []
 const processingUpdateQueue = {}
 let queueRunning = false
+
 function processNextUpdateInQueue() {
-    console.log('Processing update in queue')
     queueRunning = true
     if (pendingUpdateQueue.length > 0) {
         const token = shadow.update(ShadowName, pendingUpdateQueue[0])
@@ -36,7 +36,6 @@ function processNextUpdateInQueue() {
 }
 
 function addToUpdateQueue(state) {
-    console.log('Adding update to queue')
     pendingUpdateQueue.push(state)
     if (!queueRunning) {
         processNextUpdateInQueue()
@@ -55,7 +54,6 @@ function rejectToken(token) {
 }
 
 function processTokenStatus(status, token) {
-    console.log(`${token} has status of ${status}`)
     switch (status) {
         case 'accepted':
             acceptToken(token)
@@ -81,15 +79,12 @@ function setInitialState() {
 }
 
 function setReportedKey(key, value) {
-    console.log(`Setting reported state of ${key} to ${value}`)
     const reportedState = { state: { reported: {} } }
     reportedState.state.reported[key] = value
-    console.log(reportedState)
     addToUpdateQueue(reportedState)
 }
 
 function nullifyDesired() {
-    console.log('Deleting Desired State')
     addToUpdateQueue({ state: { desired: null } })
 }
 
@@ -155,15 +150,12 @@ function updateScreensState(newState) {
 shadow.on('connect', () => {
     console.log('Connected to Shadow')
     shadow.register(ShadowName, {}, () => {
-        console.log('Setting Shadow to Initial State')
         setInitialState()
     })
 })
 
 shadow.on('delta', (name, delta) => {
     console.log('Received Delta')
-    console.log(JSON.stringify(delta.state, null, 4))
-
     Object.keys(delta.state).forEach((key) => {
         switch (key) {
             case 'imageID':
@@ -185,7 +177,7 @@ shadow.on('delta', (name, delta) => {
                 updateScreensState(delta.state[key])
                 break
             default:
-                console.log('Nothing was done, but desired should be gone...')
+                // console.log('Nothing was done, but desired should be gone...')
         }
     })
     nullifyDesired()
