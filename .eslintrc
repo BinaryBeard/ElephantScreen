@@ -5,7 +5,8 @@
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": [2, { "ignore": ["electron"] }],
     "linebreak-style": 0,
-    "indent": ["error", 4],
-    "semi": ["error", "never"]
+    "indent": ["error", 4, { "SwitchCase": 1 }],
+    "semi": ["error", "never"],
+    "brace-style": ["error", "stroustrup"]
   }
 }
