@@ -1,8 +1,11 @@
 import IoT from 'aws-iot-device-sdk'
 import { BrowserWindow } from 'electron'
+import os from 'os'
 
 const IoTHost = 'a2638bvz51i7pu-ats.iot.us-east-1.amazonaws.com'
-const ShadowName = 'ElephantScreen1'
+const HostName = os.hostname()
+const ShadowName = `ElephantScreen${HostName[HostName.length - 1]}`
+console.log(ShadowName)
 
 const shadow = IoT.thingShadow({
     host: IoTHost,
