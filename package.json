@@ -1,6 +1,6 @@
 {
-    "name": "elephantscreen",
-    "productName": "elephantscreen",
+    "name": "ElephantScreen",
+    "productName": "ElephantScreen",
     "version": "1.0.0",
     "description": "Image viewer for Elephants",
     "main": "src/index.js",
@@ -28,10 +28,11 @@
                 ]
             },
             "electronPackagerConfig": {
-                "packageManager": "npm"
+                "packageManager": "npm",
+                "icon": "src/images/icon/icon.icns"
             },
             "electronWinstallerConfig": {
-                "name": "elephantscreen"
+                "name": "ElephantScreen"
             },
             "electronInstallerDebian": {},
             "electronInstallerRedhat": {},
@@ -41,7 +42,7 @@
             },
             "windowsStoreConfig": {
                 "packageName": "",
-                "name": "elephantscreen"
+                "name": "ElephantScreen"
             }
         }
     },
